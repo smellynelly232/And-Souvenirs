@@ -370,11 +370,25 @@
   }
   .ig-cell{
     aspect-ratio:1;
-    display:flex; align-items:center; justify-content:center;
+    display:flex; align-items:flex-end; justify-content:flex-start;
     font-family:'Fraunces', serif;
     font-style:italic;
     font-size:13px;
     color:var(--ink);
+    background-size:cover;      /* real photo (if present) fills the cell */
+    background-position:center;
+    position:relative;
+    overflow:hidden;
+  }
+  /* small caption chip in the corner of each cell — remove this rule
+     (or the <span> in the HTML) if you'd rather show plain photos with no label */
+  .ig-cell span{
+    background:rgba(43,32,25,0.55);
+    color:var(--cream);
+    padding:4px 9px;
+    margin:8px;
+    border-radius:2px;
+    font-size:11px;
   }
   .ig-cell:nth-child(6n+1){background:var(--rose);}
   .ig-cell:nth-child(6n+2){background:var(--mustard);}
