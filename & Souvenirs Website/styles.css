@@ -1,0 +1,445 @@
+/* ============================================================
+   COLOR PALETTE — change a value here and it updates site-wide.
+   cream / paper  = backgrounds
+   ink / ink-soft = text
+   rose / rose-deep / mustard = accent colors
+   ============================================================ */
+:root{
+    --cream:#F3E7D6;       /* main page background */
+    --paper:#EAD9BF;       /* slightly darker background, used on the About section */
+    --paper-deep:#DFC79E;  /* darker still, used sparingly (IG grid cell) */
+    --ink:#2B2019;         /* near-black, main text + borders */
+    --ink-soft:#5A4636;    /* softer brown, body/paragraph text */
+    --rose:#E2607F;        /* bright pink accent */
+    --rose-deep:#9B3752;   /* deeper pink/maroon accent */
+    --mustard:#D6A234;     /* gold accent, used on the main buttons */
+    --line: rgba(43,32,25,0.16); /* faint hairline color for dividers/borders */
+  }
+  /* Fonts are loaded in index.html's <head> via Google Fonts:
+     Fraunces (headlines), Jost (body text), Space Mono (labels/buttons/receipt) */
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Jost', sans-serif;
+    font-size:17px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+    pointer-events:none;
+    z-index:1000;
+    mix-blend-mode:multiply;
+  }
+  a{color:inherit;}
+  img{max-width:100%;display:block;}
+  .wrap{max-width:1120px; margin:0 auto; padding:0 32px;}
+  .eyebrow{
+    font-family:'Space Mono', monospace;
+    font-size:12px;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--rose-deep);
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+  }
+.eyebrow::before {
+  content: "*";
+  color: var(--rose-deep);
+  display: inline-block;
+
+  }
+  h1,h2,h3{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    margin:0;
+    color:var(--ink);
+  }
+  .script{
+    font-style:italic;
+    font-weight:400;
+    color:var(--rose-deep);
+  }
+
+  /* ---------- perforation divider ---------- */
+  .perf{
+    height:22px;
+    background-image: radial-gradient(circle, var(--cream) 5px, transparent 5.5px);
+    background-size: 26px 26px;
+    background-position: center;
+    position:relative;
+  }
+  .perf::before, .perf::after{
+    content:"";
+    position:absolute; left:0; right:0; height:1px;
+    background:var(--line);
+  }
+  .perf::before{top:10px;}
+  .perf::after{display:none;}
+
+  /* ---------- nav bar ---------- */
+  header{
+    padding:26px 0 6px;
+  }
+  nav.wrap{
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .logo{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:22px;
+    letter-spacing:.01em;
+  }
+  .logo .dot{color:var(--rose);}
+  .navlinks{
+    display:flex; gap:28px;
+    font-family:'Space Mono', monospace;
+    font-size:12px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+  }
+  .navlinks a{
+    text-decoration:none;
+    border-bottom:1px solid transparent;
+    padding-bottom:3px;
+    transition:border-color .2s ease, color .2s ease;
+  }
+  .navlinks a:hover{border-color:var(--rose-deep); color:var(--rose-deep);}
+  .navlinks .ig{color:var(--rose-deep);}
+
+  /* ---------- hero (top banner: headline + buttons + film strip) ---------- */
+  .hero{
+    padding:64px 0 88px;
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns: 1.05fr .95fr;
+    gap:56px;
+    align-items:center;
+  }
+  .hero h1{
+    font-size:clamp(40px, 5.4vw, 68px);
+    line-height:1.02;
+    margin:18px 0 22px;
+  }
+  .hero p.lede{
+    font-size:19px;
+    color:var(--ink-soft);
+    max-width:46ch;
+    margin-bottom:32px;
+  }
+  .cta-row{display:flex; gap:16px; flex-wrap:wrap;}
+
+  /* ticket-stub button — the two rounded-notch buttons in the hero */
+  .ticket{
+    position:relative;
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    font-family:'Space Mono', monospace;
+    font-size:13px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    text-decoration:none;
+    padding:15px 26px;
+    border:1.5px solid var(--ink);
+    background:var(--mustard);
+    color:var(--ink);
+    border-radius:3px;
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .ticket::before, .ticket::after{
+    content:"";
+    position:absolute;
+    width:14px; height:14px;
+    background:var(--cream);
+    border:1.5px solid var(--ink);
+    border-radius:50%;
+    top:50%; transform:translateY(-50%);
+  }
+  .ticket::before{ left:-8px; }
+  .ticket::after{ right:-8px; }
+  .ticket:hover{ transform:translateY(-2px); box-shadow:3px 4px 0 var(--ink); }
+  .ticket.ghost{
+    background:transparent;
+  }
+
+  /* ---------- film strip visual (the graphic on the right side of the hero) ---------- */
+  .strip-wrap{
+    display:flex; justify-content:center;
+  }
+  .filmstrip{
+    background:var(--ink);
+    padding:14px 10px;
+    border-radius:6px;
+    width:230px;
+    transform:rotate(-3deg);
+    box-shadow:10px 14px 0 rgba(43,32,25,0.14);
+  }
+  .sprockets{
+    display:flex; justify-content:space-between; padding:0 2px;
+  }
+  .sprockets span{
+    width:9px; height:6px;
+    background:var(--cream);
+    border-radius:1px;
+    display:block;
+    margin:5px 0;
+  }
+  .frames{
+    width:100%;
+    display:flex; flex-direction:column; gap:6px;
+    margin:0 8px;
+  }
+  .frame{
+    height:118px;
+    border-radius:2px;
+    display:flex; align-items:center; justify-content:center;
+    position:relative;
+    overflow:hidden;
+  }
+  .frame span{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-size:15px;
+    color:var(--ink);
+    opacity:.85;
+  }
+  .frame.f1{background:var(--rose);}
+  .frame.f2{background:var(--paper);}
+  .frame.f3{background:var(--mustard);}
+  .frame.f4{background:var(--rose-deep); }
+  .frame.f4 span{color:var(--cream);}
+  .frame .burst{
+    position:absolute; inset:0;
+    background-image: radial-gradient(circle at 50% 50%, transparent 0 4px, rgba(0,0,0,0.05) 4px 5px, transparent 5px 100%);
+  }
+  .strip-caption{
+    text-align:center;
+    font-family:'Space Mono', monospace;
+    font-size:10px;
+    letter-spacing:.16em;
+    color:var(--cream);
+    text-transform:uppercase;
+    margin-top:8px;
+  }
+
+  /* ---------- section shell (shared spacing/heading rules used by multiple sections) ---------- */
+  section{padding:76px 0;}
+  .section-head{
+    max-width:60ch;
+    margin-bottom:48px;
+  }
+  .section-head h2{
+    font-size:clamp(30px,3.6vw,44px);
+    margin-top:14px;
+    line-height:1.08;
+  }
+
+  /* ---------- about section (booth description cards) ---------- */
+  .about{
+    background:var(--paper);
+  }
+  .about-grid{
+    display:grid;
+    grid-template-columns: .95fr 1.05fr;
+    gap:56px;
+    align-items:start;
+  }
+  .booth-card{
+    background:var(--cream);
+    border:1px solid var(--line);
+    border-radius:4px;
+    padding:28px;
+  }
+  .booth-card h3{
+    font-size:20px;
+    margin-bottom:10px;
+  }
+  .booth-card p{ color:var(--ink-soft); font-size:15.5px; margin:0;}
+  .booth-card + .booth-card{ margin-top:20px; }
+  .about-copy p{ color:var(--ink-soft); margin-bottom:18px; }
+  .about-copy p:last-child{margin-bottom:0;}
+
+  /* ---------- services section (the two offer cards) ---------- */
+  .services-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:28px;
+  }
+  .svc{
+    border:1.5px solid var(--ink);
+    border-radius:4px;
+    padding:34px 30px;
+    position:relative;
+    background:var(--cream);
+  }
+  .svc .tag{
+    position:absolute; top:-13px; left:28px;
+    background:var(--ink);
+    color:var(--cream);
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    padding:5px 12px;
+    border-radius:3px;
+  }
+  .svc.pink .tag{background:var(--rose-deep);}
+  .svc h3{ font-size:26px; margin:14px 0 12px;}
+  .svc p{ color:var(--ink-soft); margin-bottom:20px;}
+  .svc ul{
+    list-style:none; padding:0; margin:0;
+    font-size:14.5px;
+    color:var(--ink-soft);
+  }
+  .svc ul li{
+    padding:9px 0;
+    border-top:1px dashed var(--line);
+    display:flex; justify-content:space-between; gap:12px;
+  }
+  .svc ul li:first-child{border-top:none;}
+
+  /* ---------- pricing receipt card ---------- */
+  .receipt-wrap{
+    display:flex; justify-content:center;
+    padding:10px 0 0;
+  }
+  .receipt{
+    background:var(--cream);
+    border:1px solid var(--line);
+    width:340px;
+    padding:30px 26px 26px;
+    font-family:'Space Mono', monospace;
+    font-size:13px;
+    box-shadow:0 10px 0 -6px var(--line);
+  }
+  .receipt h4{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-weight:500;
+    font-size:19px;
+    text-align:center;
+    margin:0 0 4px;
+  }
+  .receipt .sub{
+    text-align:center;
+    color:var(--ink-soft);
+    font-size:11px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    margin-bottom:18px;
+  }
+  .receipt-line{
+    display:flex; justify-content:space-between;
+    padding:7px 0;
+    border-top:1px dashed var(--line);
+  }
+  .receipt-line:first-of-type{border-top:1px solid var(--ink);}
+  .receipt-total{
+    border-top:1px solid var(--ink);
+    margin-top:4px;
+    padding-top:10px;
+    font-weight:700;
+    display:flex; justify-content:space-between;
+  }
+  .receipt-foot{
+    text-align:center;
+    margin-top:18px;
+    color:var(--ink-soft);
+    font-size:11px;
+  }
+
+  /* ---------- instagram cta (dark band section) ---------- */
+  .ig-section{
+    background:var(--ink);
+    color:var(--cream);
+  }
+  .ig-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:2px;
+    margin-top:36px;
+    max-width:520px;
+  }
+  .ig-cell{
+    aspect-ratio:1;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-size:13px;
+    color:var(--ink);
+  }
+  .ig-cell:nth-child(6n+1){background:var(--rose);}
+  .ig-cell:nth-child(6n+2){background:var(--mustard);}
+  .ig-cell:nth-child(6n+3){background:var(--paper);}
+  .ig-cell:nth-child(6n+4){background:var(--rose-deep); color:var(--cream);}
+  .ig-cell:nth-child(6n+5){background:var(--paper-deep);}
+  .ig-cell:nth-child(6n+6){background:var(--rose);}
+  .ig-copy{max-width:44ch;}
+  .ig-copy p{color:#D9CBB8;}
+  .ig-flex{
+    display:flex; justify-content:space-between; gap:40px; align-items:center; flex-wrap:wrap;
+  }
+  .ig-handle{
+    font-family:'Space Mono', monospace;
+    font-size:14px;
+    color:var(--rose);
+  }
+
+  /* ---------- contact / footer ---------- */
+  footer{
+    padding:70px 0 40px;
+  }
+  .contact-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:48px;
+    padding-bottom:44px;
+    border-bottom:1px solid var(--line);
+  }
+  .contact-grid h2{ font-size:clamp(28px,3.4vw,40px); margin-bottom:16px;}
+  .contact-grid p{ color:var(--ink-soft); max-width:40ch;}
+  .contact-list{
+    font-family:'Space Mono', monospace;
+    font-size:13.5px;
+  }
+  .contact-list a{
+    text-decoration:none;
+    display:block;
+    padding:14px 0;
+    border-top:1px dashed var(--line);
+  }
+  .contact-list a:first-child{border-top:none;}
+  .contact-list .k{ color:var(--rose-deep); margin-right:10px;}
+  .foot-bottom{
+    display:flex; justify-content:space-between; align-items:center;
+    padding-top:26px;
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    color:var(--ink-soft);
+    letter-spacing:.04em;
+    flex-wrap:wrap; gap:10px;
+  }
+
+  /* ---------- mobile layout — stacks the two-column sections into one column ---------- */
+  @media (max-width: 860px){
+    .hero-grid, .about-grid, .services-grid, .contact-grid{
+      grid-template-columns:1fr;
+    }
+    .hero{padding:44px 0 60px;}
+    .strip-wrap{order:-1; margin-bottom:12px;}
+    .filmstrip{transform:rotate(-2deg);}
+    .navlinks{gap:16px; font-size:10.5px;}
+    .ig-flex{flex-direction:column; align-items:flex-start;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    .ticket{transition:none;}
+  }
