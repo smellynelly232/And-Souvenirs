@@ -1,2 +1,0 @@
-# And-Souvenirs
-Photobooth business
