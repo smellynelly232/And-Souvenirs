@@ -44,7 +44,12 @@
 <header>
   <nav class="wrap">
     <div class="logo">& Souvenirs</div>
-    <div class="navlinks">
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-navigation" aria-label="Open navigation menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <div class="navlinks" id="site-navigation">
       <a href="#about">The Booth</a>
       <a href="#services">Book Us</a>
       <a href="#gallery">Gallery</a>
@@ -270,6 +275,24 @@
   const lightboxImage = document.querySelector('.lightbox-image');
   const lightboxCaption = document.querySelector('.lightbox-caption');
   let activeGalleryIndex = 0;
+  const menuToggle = document.querySelector('.menu-toggle');
+  const siteNavigation = document.querySelector('#site-navigation');
+
+  function setNavigationOpen(isOpen) {
+    menuToggle.setAttribute('aria-expanded', String(isOpen));
+    menuToggle.setAttribute('aria-label', isOpen ? 'Close navigation menu' : 'Open navigation menu');
+    siteNavigation.classList.toggle('is-open', isOpen);
+  }
+
+  menuToggle.addEventListener('click', () => {
+    setNavigationOpen(menuToggle.getAttribute('aria-expanded') !== 'true');
+  });
+  siteNavigation.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => setNavigationOpen(false));
+  });
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape') setNavigationOpen(false);
+  });
 
   function showGalleryImage(index) {
     activeGalleryIndex = (index + galleryItems.length) % galleryItems.length;
