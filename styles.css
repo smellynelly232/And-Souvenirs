@@ -12,7 +12,7 @@
     --ink-soft:#5A4636;    /* softer brown, body/paragraph text */
     --rose:#E2607F;        /* bright pink accent */
     --rose-deep:#9B3752;   /* deeper pink/maroon accent */
-    --mustard:#D6A234;     /* gold accent, used on the main buttons */
+    --rose:#E2607F;     /* gold accent, used on the main buttons */
     --line: rgba(43,32,25,0.16); /* faint hairline color for dividers/borders */
   }
   /* Fonts are loaded in index.html's <head> via Google Fonts:
@@ -149,7 +149,7 @@
     text-decoration:none;
     padding:15px 26px;
     border:1.5px solid var(--ink);
-    background:var(--mustard);
+    background:var(--rose);
     color:var(--ink);
     border-radius:3px;
     transition:transform .15s ease, box-shadow .15s ease;
@@ -168,6 +168,47 @@
   .ticket:hover{ transform:translateY(-2px); box-shadow:3px 4px 0 var(--ink); }
   .ticket.ghost{
     background:transparent;
+  }
+
+  /* ---------- placeholder photo box (swap in a real booth photo here) ---------- */
+  /* ---------- real photo strip image (replaces the old decorative filmstrip) ---------- */
+  .photostrip-photo{
+    position:relative;
+    width:230px;
+    aspect-ratio:2/6;
+    margin:0 auto;
+    border-radius:6px;
+    overflow:hidden;
+    background:var(--ink);
+    transform:rotate(-3deg);
+    box-shadow:10px 14px 0 rgba(43,32,25,0.14);
+  }
+  .photostrip-photo img{
+    width:100%; height:100%;
+    object-fit:cover;
+  }
+  .photostrip-photo__label{
+    display:none;
+    position:absolute; inset:0;
+    align-items:center; justify-content:center;
+    text-align:center;
+    padding:16px;
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--cream);
+    line-height:1.4;
+  }
+  /* shown only when the image above fails to load (i.e. no photo added yet) */
+  .photostrip-photo--empty{
+    border:1.5px dashed var(--line);
+    background:var(--paper);
+  }
+  .photostrip-photo--empty img{ display:none; }
+  .photostrip-photo--empty .photostrip-photo__label{
+    display:flex;
+    color:var(--ink-soft);
   }
 
   /* ---------- film strip visual (the graphic on the right side of the hero) ---------- */
@@ -213,7 +254,7 @@
   }
   .frame.f1{background:var(--rose);}
   .frame.f2{background:var(--paper);}
-  .frame.f3{background:var(--mustard);}
+  .frame.f3{background: #5CC5F2}
   .frame.f4{background:var(--rose-deep); }
   .frame.f4 span{color:var(--cream);}
   .frame .burst{
@@ -282,7 +323,7 @@
   }
   .svc .tag{
     position:absolute; top:-13px; left:28px;
-    background:var(--ink);
+    background:#E2607F;
     color:var(--cream);
     font-family:'Space Mono', monospace;
     font-size:11px;
@@ -291,7 +332,7 @@
     padding:5px 12px;
     border-radius:3px;
   }
-  .svc.pink .tag{background:var(--rose-deep);}
+  .svc.pink .tag{background:var(--rose);}
   .svc h3{ font-size:26px; margin:14px 0 12px;}
   .svc p{ color:var(--ink-soft); margin-bottom:20px;}
   .svc ul{
@@ -355,6 +396,95 @@
     color:var(--ink-soft);
     font-size:11px;
   }
+
+  /* ---------- click-through photo gallery ---------- */
+  .gallery-section{background:var(--paper);}
+  .gallery-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:16px;
+  }
+  .gallery-item{
+    position:relative;
+    display:block;
+    width:100%;
+    aspect-ratio:4/3;
+    padding:0;
+    overflow:hidden;
+    border:1px solid var(--line);
+    border-radius:3px;
+    background:var(--cream);
+    cursor:pointer;
+  }
+  .gallery-item img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:transform .3s ease;
+  }
+  .gallery-item:hover img{transform:scale(1.04);}
+  .gallery-placeholder{
+    position:absolute;
+    inset:0;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    color:var(--ink-soft);
+    font-family:'Space Mono', monospace;
+    font-size:12px;
+    line-height:1.8;
+    text-align:center;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+  }
+  .gallery-item--empty .gallery-placeholder{display:flex;}
+  .gallery-item:focus-visible,
+  .lightbox button:focus-visible{outline:3px solid var(--rose-deep); outline-offset:3px;}
+  .lightbox{
+    position:fixed;
+    width:min(92vw,1000px);
+    max-width:none;
+    max-height:90vh;
+    padding:54px 72px 30px;
+    overflow:visible;
+    border:1px solid var(--paper-deep);
+    background:var(--ink);
+    color:var(--cream);
+  }
+  .lightbox::backdrop{background:rgba(20,14,11,.88);}
+  .lightbox-figure{margin:0;}
+  .lightbox-image{
+    width:100%;
+    max-height:72vh;
+    object-fit:contain;
+  }
+  .lightbox-image[hidden]{display:none;}
+  .lightbox-caption{
+    padding-top:14px;
+    color:var(--cream);
+    font-family:'Space Mono', monospace;
+    font-size:12px;
+    text-align:center;
+    text-transform:uppercase;
+  }
+  .lightbox button{
+    position:absolute;
+    display:grid;
+    place-items:center;
+    width:42px;
+    height:42px;
+    padding:0;
+    border:1px solid rgba(243,231,214,.55);
+    border-radius:50%;
+    background:transparent;
+    color:var(--cream);
+    cursor:pointer;
+    font-size:24px;
+  }
+  .lightbox button:hover{background:var(--rose-deep);}
+  .lightbox-close{top:12px;right:12px;}
+  .lightbox-prev{top:50%;left:14px;transform:translateY(-50%);}
+  .lightbox-next{top:50%;right:14px;transform:translateY(-50%);}
 
   /* ---------- instagram cta (dark band section) ---------- */
   .ig-section{
@@ -452,8 +582,17 @@
     .filmstrip{transform:rotate(-2deg);}
     .navlinks{gap:16px; font-size:10.5px;}
     .ig-flex{flex-direction:column; align-items:flex-start;}
+    .gallery-grid{grid-template-columns:repeat(2,1fr);}
+  }
+  @media (max-width: 520px){
+    .gallery-grid{gap:9px;}
+    .lightbox{width:96vw;padding:54px 48px 24px;}
+    .lightbox button{width:36px;height:36px;}
+    .lightbox-prev{left:6px;}
+    .lightbox-next{right:6px;}
   }
   @media (prefers-reduced-motion: reduce){
     html{scroll-behavior:auto;}
     .ticket{transition:none;}
+    .gallery-item img{transition:none;}
   }
